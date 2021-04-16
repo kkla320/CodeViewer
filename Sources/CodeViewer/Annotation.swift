@@ -12,8 +12,8 @@ import Foundation
 //row: 8
 //text: "Expected an identifier and instead saw 'var'."
 //type: "error"
-public struct Annotation: Decodable {
-    enum AnnotationType: String, Decodable {
+public struct Annotation: Codable {
+    enum AnnotationType: String, Codable {
         case error
         case warning
         case info

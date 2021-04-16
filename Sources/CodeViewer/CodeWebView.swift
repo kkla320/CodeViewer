@@ -343,6 +343,14 @@ public class CodeWebView: CustomView {
            callback(result)
         }
     }
+    
+    func setAnnotations(annotations: [Annotation]) {
+        guard let annotationString = try? JSONEncoder().encode(annotations) else {
+            return
+        }
+        let script = "editor.getSession().setAnnotations(\(annotationString));"
+        callJavascript(javascriptString: script)
+    }
 }
 
 extension CodeWebView {

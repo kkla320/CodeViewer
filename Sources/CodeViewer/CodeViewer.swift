@@ -13,6 +13,7 @@ import WebKit
 public struct CodeViewer: ViewRepresentable {
     
     @Binding var content: String
+    @Binding var annotations: [Annotation]
     @Environment(\.colorScheme) var colorScheme
     var textDidChanged: ((String) -> Void)?
     
@@ -24,6 +25,7 @@ public struct CodeViewer: ViewRepresentable {
     
     public init(
         content: Binding<String>,
+        annotations: Binding<[Annotation]> = .constant([]),
         mode: CodeWebView.Mode = .json,
         darkTheme: CodeWebView.Theme = .solarized_dark,
         lightTheme: CodeWebView.Theme = .solarized_light,
@@ -32,6 +34,7 @@ public struct CodeViewer: ViewRepresentable {
         textDidChanged: ((String) -> Void)? = nil
     ) {
         self._content = content
+        self._annotations = annotations
         self.mode = mode
         self.darkTheme = darkTheme
         self.lightTheme = lightTheme
@@ -50,7 +53,7 @@ public struct CodeViewer: ViewRepresentable {
         codeView.setReadOnly(isReadOnly)
         codeView.setMode(mode)
         codeView.setFontSize(fontSize)
-        
+        codeView.setAnnotations(annotations: annotations)
         codeView.setContent(content)
         codeView.clearSelection()
         
