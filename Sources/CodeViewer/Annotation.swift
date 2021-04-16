@@ -13,7 +13,7 @@ import Foundation
 //text: "Expected an identifier and instead saw 'var'."
 //type: "error"
 public struct Annotation: Codable {
-    enum AnnotationType: String, Codable {
+    public enum AnnotationType: String, Codable {
         case error
         case warning
         case info
@@ -23,6 +23,13 @@ public struct Annotation: Codable {
     let row: Int
     let text: String
     let type: AnnotationType
+    
+    public init(column: Int, row: Int, text: String, type: AnnotationType) {
+        self.column = column
+        self.row = row
+        self.text = text
+        self.type = type
+    }
 }
 
 extension Annotation {
